@@ -73,7 +73,7 @@ public class Order {
         delivery.setOrder(this);
     }
 
-    //== Order 를 생성하기 위한 메서드는 그냥 Domain 안에 구현==//
+    //==!!! Order 를 생성하기 위한 메서드는 그냥 Domain 안에 구현 !!!==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) { // ... 은 java 가변인자 로 검색해보면 됨
         Order order = new Order();
         order.setMember(member);
