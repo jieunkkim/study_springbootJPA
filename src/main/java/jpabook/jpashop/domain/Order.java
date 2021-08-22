@@ -70,8 +70,41 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    //== Order 를 생성하기 위한 메서드는 그냥 Domain 안에 구현==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) { // ... 은 java 가변인자 로 검색해보면 됨
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for (OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+    //== 비즈니스 로직==//
+    /**
+      * 주문 취소
+      */
+    public void cancel() {
+        if (delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송완료된 상품은 취소 불가합니다.");
+        }
 
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
 
-
-
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
 }
