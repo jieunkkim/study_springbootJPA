@@ -59,7 +59,8 @@ public class ItemController {
         return "items/updateItemForm";
     }
 
-    @PostMapping("/items/{itemId}/edit")
+    /*
+    @PostMapping("/items/{itemId}/edit")    // 변경감지 기능을 사용하지 않은 case? repository 에서 직접 merge..?
     private String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form) {
 
         Book book = new Book();
@@ -69,9 +70,19 @@ public class ItemController {
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
+        // 원래 JPA 는 업데이트 로직을 따로 구현하지 않아도 JPA 에서 Entity 값의 변경점을 dirty checking 하여 업데이트 시켜준다?
+        // 하지만 준영속 엔티티의 경우 (ex.Book) 수정하려면 변경감지 기능이나 병합을 사용해야 한다..? pdf 파일 참인
+
 
         itemService.saveItem(book);
         return "redirect:/items";
+    }
+    */
+
+    @PostMapping("items/{itemId}/edit") // 변경감지 기능을 사용하여 update 한 설계..?
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form) {
+       itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
+    return "redirect:/items";
     }
 
 }
