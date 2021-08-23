@@ -28,6 +28,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	/* javax.validation 을 사용하기 위함 (ex. @NotEmpty)*/
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	/* 아래는 강의 중 별도 추가한 것 */
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
