@@ -9,7 +9,7 @@ spring:
   jpa:
     hibernate:
       # table 자동으로 create 해주는 설정 (보편적인 설정인듯)
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         # show_sql 은 jpa sql 을 system.out 으로 출력 (운영에선 권장하지 않음)
